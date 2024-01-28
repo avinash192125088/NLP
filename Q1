@@ -1,0 +1,17 @@
+import re
+
+def main():
+    text = "The quick brown fox jumps over the lazy dog. 123-456-7890 is a phone number. Email me at example@email.com."
+    word_pattern = re.compile(r'\b\w{5}\b')  # Matches words with exactly 5 characters
+    matches = word_pattern.findall(text)
+    print("Words with exactly 5 characters:")
+    for match in matches:
+        print(match)
+    phone_email_pattern = re.compile(r'\b\d{3}-\d{3}-\d{4}\b|\b[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}\b')
+    phone_email_matches = phone_email_pattern.findall(text)
+    print("\nPhone numbers and email addresses:")
+    for match in phone_email_matches:
+        print(match)
+
+if __name__ == "__main__":
+    main()

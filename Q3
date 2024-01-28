@@ -1,0 +1,22 @@
+import nltk
+from nltk.stem import PorterStemmer
+from nltk.tokenize import word_tokenize
+
+nltk.download('punkt')  # Download the punkt tokenizer if not already downloaded
+
+def perform_morphological_analysis(text):
+    words = word_tokenize(text)
+    porter_stemmer = PorterStemmer()
+    stemmed_words = [porter_stemmer.stem(word) for word in words]
+
+    return stemmed_words
+
+def main():
+    # Example text for morphological analysis
+    input_text = "The quick brown foxes are jumping over the lazy dogs."
+    result = perform_morphological_analysis(input_text)
+    print("Original words:", word_tokenize(input_text))
+    print("Stemmed words:", result)
+
+if __name__ == "__main__":
+    main()

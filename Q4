@@ -1,0 +1,44 @@
+class MorphologicalParser:
+    def __init__(self):
+        self.transitions = {
+            'q0': {'noun': 'q1'},
+            'q1': {'y': 'q2', 'default': 'q3'},
+            'q2': {'default': 'q3'},
+            'q3': {}  # Accepting state
+        }
+
+    def generate_plural(self, noun):
+        current_state = 'q0'
+
+        for char in reversed(noun):  # Process the noun in reverse for simplicity
+            if char == 'y' and current_state in self.transitions and 'y' in self.transitions[current_state]:
+                current_state = self.transitions[current_state]['y']
+            elif 'default' in self.transitions[current_state]:
+                current_state = self.transitions[current_state]['default']
+            else:
+                return None  # Invalid transition
+
+        # Check if the final state is the accepting state
+        return current_state == 'q3'
+
+def main():
+    parser = MorphologicalParser()
+
+    # Example usage
+    nouns_to_plural = {
+        'city': 'cities',
+        'dog': 'dogs',
+        'baby': 'babies',
+        'cherry': 'cherries',
+        'toy': 'toys'
+    }
+
+    for noun, expected_plural in nouns_to_plural.items():
+        plural_result = parser.generate_plural(noun)
+        if plural_result:
+            print(f"Plural of '{noun}': {expected_plural}")
+        else:
+            print(f"Unable to generate plural for '{noun}'")
+
+if __name__ == "__main__":
+    main()

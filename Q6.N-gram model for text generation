@@ -1,0 +1,42 @@
+import random
+
+def generate_bigram_model(text):
+    words = text.split()
+    bigrams = [(words[i], words[i + 1]) for i in range(len(words) - 1)]
+    
+    bigram_model = {}
+    for word1, word2 in bigrams:
+        if word1 in bigram_model:
+            bigram_model[word1].append(word2)
+        else:
+            bigram_model[word1] = [word2]
+
+    return bigram_model
+
+def generate_text(bigram_model, seed_word, length=10):
+    current_word = seed_word
+    generated_text = [current_word]
+
+    for _ in range(length - 1):
+        if current_word in bigram_model:
+            next_word = random.choice(bigram_model[current_word])
+            generated_text.append(next_word)
+            current_word = next_word
+        else:
+            break
+
+    return ' '.join(generated_text)
+
+# Example usage
+text_corpus = "This is a simple example sentence for building a bigram model in Python."
+
+# Generating a bigram model
+bigram_model = generate_bigram_model(text_corpus)
+
+# Generating text using the bigram model
+generated_text = generate_text(bigram_model, seed_word="This", length=10)
+
+print("Original Text:")
+print(text_corpus)
+print("\nGenerated Text:")
+print(generated_text)

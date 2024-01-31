@@ -1,0 +1,15 @@
+from nltk.stem import PorterStemmer
+from nltk.tokenize import word_tokenize
+
+# Initialize the Porter Stemmer
+porter = PorterStemmer()
+
+# Example list of words
+words = ["running", "flies", "happily", "eating", "connection", "jumps"]
+
+# Perform stemming on each word in the list
+stemmed_words = [porter.stem(word) for word in words]
+
+# Print the original and stemmed words
+for original, stemmed in zip(words, stemmed_words):
+    print(f"{original} -> {stemmed}")
